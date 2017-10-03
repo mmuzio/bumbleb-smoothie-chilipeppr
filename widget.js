@@ -34,7 +34,7 @@ requirejs.config({
     }
 });
 
-cprequire_test(["inline:com-chilipeppr-widget-Smoothie"], function(myWidget) {
+cprequire_test(["inline:com-chilipeppr-bumbleb-smoothie-chilipeppr"], function(myWidget) {
 
     // Test this element. This code is auto-removed by the chilipeppr.load()
     // when using this widget in production. So use the cpquire_test to do things
@@ -74,13 +74,13 @@ cprequire_test(["inline:com-chilipeppr-widget-Smoothie"], function(myWidget) {
 } /*end_test*/ );
 
 // This is the main definition of your widget. Give it a unique name.
-cpdefine("inline:com-chilipeppr-widget-Smoothie", ["chilipeppr_ready", /* other dependencies here */ ], function() {
+cpdefine("inline:com-chilipeppr-bumbleb-smoothie-chilipeppr", ["chilipeppr_ready", /* other dependencies here */ ], function() {
     return {
         /**
          * The ID of the widget. You must define this and make it unique.
          */
-        id: "com-chilipeppr-widget-Smoothie", // Make the id the same as the cpdefine id
-        name: "Widget / Smoothieboard", // The descriptive name of your widget.
+        id: "com-chilipeppr-bumbleb-smoothie-chilipeppr", // Make the id the same as the cpdefine id
+        name: "BumbleB Smoothie Control", // The descriptive name of your widget.
         desc: "This widget shows smoothie specific controls and current status information.", // A description of what your widget does
         url: "(auto fill by runme.js)",       // The final URL of the working widget as a single HTML file with CSS and Javascript inlined. You can let runme.js auto fill this if you are using Cloud9.
         fiddleurl: "(auto fill by runme.js)", // The edit URL. This can be auto-filled by runme.js in Cloud9 if you'd like, or just define it on your own to help people know where they can edit/fork your widget
@@ -248,9 +248,9 @@ cpdefine("inline:com-chilipeppr-widget-Smoothie", ["chilipeppr_ready", /* other 
         btnSetup: function() {
             // chevron hide body
             var that = this;
-            $('#com-chilipeppr-widget-Smoothie .hidebody').click(function(evt) {
+            $('#com-chilipeppr-bumbleb-smoothie-chilipeppr .hidebody').click(function(evt) {
                 //console.log("Smoothie: hide/unhide body");
-                if ($('#com-chilipeppr-widget-Smoothie .panel-body .stat-row').hasClass('hidden')) {
+                if ($('#com-chilipeppr-bumbleb-smoothie-chilipeppr .panel-body .stat-row').hasClass('hidden')) {
                     // it's hidden, unhide
                     that.showBody(evt);
                 } else {
@@ -258,34 +258,34 @@ cpdefine("inline:com-chilipeppr-widget-Smoothie", ["chilipeppr_ready", /* other 
                     that.hideBody(evt);
                 }
             });
-            $('#com-chilipeppr-widget-Smoothie .Smoothie-feedhold').click(function() {
+            $('#com-chilipeppr-bumbleb-smoothie-chilipeppr .Smoothie-feedhold').click(function() {
                 //console.log("Smoothie: feedhold");
                 that.sendCode('!');
                 // announce to other widgets that user hit e-stop
                 chilipeppr.publish('/com-chilipeppr-interface-cnccontroller/plannerpause', "");
                 chilipeppr.publish("/com-chilipeppr-interface-cnccontroller/feedhold", "");
             });
-            $('#com-chilipeppr-widget-Smoothie .Smoothie-cyclestart').click(function() {
+            $('#com-chilipeppr-bumbleb-smoothie-chilipeppr .Smoothie-cyclestart').click(function() {
                 //console.log("Smoothie: cyclestart");
                 that.sendCode('~');
                 //may want to check if buffer queue is >128 before resuming planner.
                 chilipeppr.publish('/com-chilipeppr-interface-cnccontroller/plannerresume', ""); 
             });
             
-            $('#com-chilipeppr-widget-Smoothie .Smoothie-verbose').click(function() {
+            $('#com-chilipeppr-bumbleb-smoothie-chilipeppr .Smoothie-verbose').click(function() {
                 //console.log("Smoothie: manual status update");
-                $('#com-chilipeppr-widget-Smoothie .Smoothie-verbose').toggleClass("enabled");
+                $('#com-chilipeppr-bumbleb-smoothie-chilipeppr .Smoothie-verbose').toggleClass("enabled");
             });
             
-            $('#com-chilipeppr-widget-Smoothie .Smoothie-reset').click(function() {
+            $('#com-chilipeppr-bumbleb-smoothie-chilipeppr .Smoothie-reset').click(function() {
                 //console.log("Smoothie: reset");
                 that.sendCode(String.fromCharCode(24));
                 chilipeppr.publish('/com-chilipeppr-interface-cnccontroller/plannerresume', "");
             });
 
-            //$('#com-chilipeppr-widget-Smoothie-btnoptions').click(this.showConfigModal.bind(this));
+            //$('#com-chilipeppr-bumbleb-smoothie-chilipeppr-btnoptions').click(this.showConfigModal.bind(this));
             
-            $('#com-chilipeppr-widget-Smoothie .btn-toolbar .btn').popover({
+            $('#com-chilipeppr-bumbleb-smoothie-chilipeppr .btn-toolbar .btn').popover({
                 delay: 500,
                 animation: true,
                 placement: "auto",
@@ -347,7 +347,7 @@ cpdefine("inline:com-chilipeppr-widget-Smoothie", ["chilipeppr_ready", /* other 
             chilipeppr.publish('/com-chilipeppr-interface-cnccontroller/status',this.status);
             $('.com-chilipeppr-Smoothie-state').text(this.status);
             this.version = "";
-            $('#com-chilipeppr-widget-Smoothie .panel-title').text("Smoothie");
+            $('#com-chilipeppr-bumbleb-smoothie-chilipeppr .panel-title').text("Smoothie");
             this.offsets = {"x": 0.000, "y": 0.000, "z": 0.000};
             this.last_machine= {"x":0.000, "y": 0.000, "z": 0.000};
             this.last_work = {"x":0.000, "y": 0.000, "z": 0.000};
@@ -510,7 +510,7 @@ cpdefine("inline:com-chilipeppr-widget-Smoothie", ["chilipeppr_ready", /* other 
                     
                     chilipeppr.publish("/com-chilipeppr-widget-gcode/stop", true); //stops gcode widget since Smoothie just reset.
                     this.version = msg.split(" ")[1];
-                    $('#com-chilipeppr-widget-Smoothie .panel-title').text("Smoothie (" + this.version + ")"); //update ui  
+                    $('#com-chilipeppr-bumbleb-smoothie-chilipeppr .panel-title').text("Smoothie (" + this.version + ")"); //update ui  
                 }
                 else if(msg.search(/^\$[0-9][0-9]*=/g) >= 0){ //is a config report ($0=,$1=...etc)
                     var tmp = msg.split(/ (.+)/); //break out config and description
@@ -791,7 +791,7 @@ cpdefine("inline:com-chilipeppr-widget-Smoothie", ["chilipeppr_ready", /* other 
          * events.
          */
         forkSetup: function() {
-              var topCssSelector = '#com-chilipeppr-widget-Smoothie';
+              var topCssSelector = '#com-chilipeppr-bumbleb-smoothie-chilipeppr';
             
             //$(topCssSelector + ' .fork').prop('href', this.fiddleurl);
             //$(topCssSelector + ' .standalone').prop('href', this.url);
@@ -810,7 +810,7 @@ cpdefine("inline:com-chilipeppr-widget-Smoothie", ["chilipeppr_ready", /* other 
             
             chilipeppr.load("link", function () {
                 require(['inline:com-chilipeppr-elem-pubsubviewer'], function (pubsubviewer) {
-                    pubsubviewer.attachTo($('#com-chilipeppr-widget-Smoothie .panel-heading .dropdown-menu'), that);
+                    pubsubviewer.attachTo($('#com-chilipeppr-bumbleb-smoothie-chilipeppr .panel-heading .dropdown-menu'), that);
                 });
             });
 
